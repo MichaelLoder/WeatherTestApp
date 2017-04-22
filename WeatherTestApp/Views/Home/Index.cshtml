@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+<script>
+    var selectedWindUnit = "KPH";
+    var selectedTempUnit = "Celsius";
+    $(function() {
+        $('.windUnit').change(function() {
+            selectedWindUnit = $('input[name="windUnit"]:checked').val();
+        })
+        $('.tempUnit').change(function() {
+            selectedTempUnit = $('input[name="tempUnit"]:checked').val();
+        });
+
+    })
+
+    function PostTest() {
+        $('#loadingGif').show();
+        $.post('/home/GetWeather',
+            { TempUnit: selectedTempUnit, WindUnit: selectedWindUnit, Location: $('#selectedLocation').val() },
+            function(data) {
+                console.log(data);
+                displayResult(data);
+                $('#loadingGif').hide();
+            }
+        );
+    }
+
+    function displayResult(data) {
+        var currentData = $('#resultsTable').html();
+        currentData += "<tr> <td>" +
+            new Date() +
+            "</td><td>" +
+            data.location +
+            "</td><td>" +
+            data.averageWindSpeed +
+            "</td><td>" +
+            data.averageTemp +
+            "</td></tr>";
+        $('#resultsTable').html(currentData);
+    }
+
+</script>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Weather 
+        </div>
+        <div class="panel-body">
+            <h2>Settings</h2>
+            <div class="row">
+                <div id="windUnits" class="col-lg-4">
+                    Selected Wind Unit<br/>
+                    <label><input name="windUnit" checked="checked" class="windUnit" type="radio" Value="KPH"/> KPH</label>
+
+                    <label><input name="windUnit" class="windUnit" type="radio" value="MPH"> MPH</label>
+                </div>
+                <div id="TempUnits" class="col-lg-4">
+                    Selected Temperature Unit<br/>
+                    <label><input name="tempUnit" checked="checked" class="tempUnit" type="radio" Value="Celsius"/> Celsius</label>
+                    <label><input name="tempUnit" class="tempUnit" type="radio" value="Fahrenheit"/> Fahrenheit</label>
+                </div>
+                <div class="col-lg-4">
+                    <input id="selectedLocation" class="input-group" placeholder="Location" type="text"/>
+                </div>
+            </div>
+            
+
+            <table style="margin-top: 50px;" class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Datetime</th>
+                    <th>Location</th>
+                    <th>Average WindSpeed</th>
+                    <th>Average Temerature</th>
+                </tr>
+                </thead>
+                <tbody id="resultsTable">
+
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <button onclick="PostTest()" class="btn btn-success">Get Weather Result<span id="loadingGif" style="display: none;"><img style="margin-left: 10px;" height="20px;" width="20px;" src="~/Images/Loading.gif" /></span></button>
+        </div>
+    </div>
+</div>
