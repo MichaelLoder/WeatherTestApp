@@ -11,7 +11,7 @@ The project could be improved in a number of ways, some improvements i would sug
 3) A better rule engine, that can handle a collection of rules
 4) Static links need to be stored correctly, database, web.config depending how often these links are to changed
 5) Better error handling on the front end
-6) Better UI, i would of liked to use something like Angularjs
+6) Better UI, i would of liked to use something like Angularjs and display more information
 
 ## Adding more api's
 
