@@ -9,6 +9,6 @@ namespace BLL.Interfaces
 
         value Get(key key);
         void Add(key key, value value);
-        void Update(key key, value value);
+       
     }
 }

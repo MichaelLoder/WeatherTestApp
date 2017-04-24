@@ -37,7 +37,7 @@ namespace WeatherTestApp
             services.AddMvc();
             services.AddScoped<IWeatherFacade, WeatherFacade>();
             services.AddSingleton<ICacheFacade<TempUnits,List<AggeratorResult>>, TemperatureCache>();
-            services.AddScoped<ICacheFacade<WindUnits, List<AggeratorResult>>, WindCache>();
+            services.AddSingleton<ICacheFacade<WindUnits, List<AggeratorResult>>, WindCache>();
             services.AddScoped<IAggeratorClient, AggeratorClient>();
             services.AddScoped<IWeatherAggregatorFactory, WeatherAggregatorFactory>();
             services.AddSingleton<IWeatherRule, _4ComRule>();

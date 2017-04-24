@@ -32,7 +32,7 @@ namespace BLL
                 stream.Position = 0;
                 // read incoming data
                 var data = new StreamReader(stream).ReadToEnd();
-                // deserialise data
+                // deserialize data
                 var result = JsonConvert.DeserializeObject<T>(data);
 
                 return result;
